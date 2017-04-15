@@ -3,6 +3,10 @@ package io.priesnit;
 import challenge.Runner;
 import challenge.Solution;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by vince on 4/7/2017.
  */
@@ -15,16 +19,24 @@ public class TrieElemSolution implements Solution {
             c.put(integers[i]);
         }
 
-        StringBuilder sb = new StringBuilder().append(c.getMin()).append(" ");
+        final List<Integer> result = new ArrayList<Integer>((integers.length / k) + 1);
+
+        result.add(c.getMin());
         for (int i = k; i < integers.length; i++) {
             c.put(integers[i]);
             c.remove(integers[i - k]);
-            sb.append(c.getMin()).append(" ");
+            result.add(c.getMin());
         }
-        return sb.toString().trim();
+
+        return result.stream().map(min -> String.valueOf(min)).collect(Collectors.joining(DELIMITER));
+    }
+
+    @Override public String getName() {
+        return "Trie Element Solution";
     }
 
     public static void main(String[] args) {
-        Runner.runHuge(new TrieElemSolution());
+        final Runner runner = new Runner();
+        runner.runHuge(new TrieElemSolution());
     }
 }

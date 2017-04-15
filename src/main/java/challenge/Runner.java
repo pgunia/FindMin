@@ -14,7 +14,7 @@ public class Runner {
         System.out.println("Result is " + solve);
     }
 
-    public static void runHuge(Solution solution) {
+    public void runHuge(Solution solution) {
         int n = 100000;
         final int windowSize = 1000;
 
@@ -31,7 +31,7 @@ public class Runner {
         System.out.println("Result is " + solve);
     }
 
-    public static void compare(Solution solution1, Solution solution2) {
+    public void compare(Solution solution1, Solution solution2) {
         int n = 100000;
         final int windowSize = 1000;
 
@@ -41,21 +41,27 @@ public class Runner {
         for (int i = 0; i < n; i++) {
             input[i] = Math.abs(r.nextInt());
         }
+        solveAndCompare(solution1, solution2, windowSize, input);
+    }
 
+    public boolean compare(Solution solution1, Solution solution2, int[] input, int windowSize) {
+        return solveAndCompare(solution1, solution2, windowSize, input);
+    }
+
+    private boolean solveAndCompare(Solution solution1, Solution solution2, int windowSize, int[] input) {
         long start1 = System.currentTimeMillis();
         String result1 = solution1.solve(windowSize, input);
-        System.out.println("Solution1 took " + (System.currentTimeMillis() - start1 ) + " ms");
+        System.out.println(solution1.getName() + " took " + (System.currentTimeMillis() - start1 ) + " ms");
 
         long start2 = System.currentTimeMillis();
         String result2 = solution2.solve(windowSize, input);
-        System.out.println("Solution2 took " + (System.currentTimeMillis() - start2 ) + " ms");
+        System.out.println(solution2.getName() + " took " + (System.currentTimeMillis() - start2 ) + " ms");
 
-        if (!Objects.equals(result1, result2)) {
+        if(!Objects.equals(result1, result2)) {
             System.out.println("Results are different: "
-                    + "\n " + result1
-                    + "\n " + result2);
+                + "\n " + result1
+                + "\n " + result2);
         }
+        return Objects.equals(result1, result2);
     }
-
-
 }
