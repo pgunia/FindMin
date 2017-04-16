@@ -8,6 +8,7 @@ import patrick.LessNaiveSolution;
 import patrick.NaiveSolution;
 
 import java.util.Random;
+import java.util.stream.IntStream;
 
 /**
  * Created by pgunia on 15.04.17.
@@ -23,6 +24,8 @@ public class TestChallengeSolution {
     private static final int BIG_INPUT_LENGTH = 1000000;
 
     private static int[] HUGE_INPUT;
+
+    private static final int[] SORTED_INPUT = IntStream.range(0, BIG_INPUT_LENGTH).toArray();
 
     private final Runner runner = new Runner();
 
@@ -63,5 +66,11 @@ public class TestChallengeSolution {
     public void testCorrectnessFixedInputTrieElementLessNaiveBigInput() {
         System.out.println("Trie elem solution vs. Less naive solution - BIG INPUT");
         Assert.assertTrue(this.runner.compare(new TrieElemSolution(), new LessNaiveSolution(), this.HUGE_INPUT, HUGE_WINDOW_SIZE));
+    }
+
+    @Test
+    public void testCorrectnessFixedInputTrieElementLessNaiveSortedBigInput() {
+        System.out.println("Trie elem solution vs. Less naive solution - SORTED BIG INPUT");
+        Assert.assertTrue(this.runner.compare(new TrieElemSolution(), new LessNaiveSolution(), this.SORTED_INPUT, HUGE_WINDOW_SIZE));
     }
 }
